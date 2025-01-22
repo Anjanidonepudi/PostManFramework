@@ -1,0 +1,338 @@
+{
+	"id": "b5260b78-d2be-4011-9fa2-0c6f59aef5ac",
+	"name": "API_Automation_PositiveTests",
+	"timestamp": "2025-01-22T15:43:12.326Z",
+	"collection_id": "38933082-f41cff76-8819-41df-95a3-72e6d63ea53e",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 68,
+	"delay": "5000",
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-01-22T15:40:58.562Z",
+	"totalFail": 4,
+	"results": [
+		{
+			"id": "654cc14c-7f26-4486-ad04-4601f1afb094",
+			"name": "AddPlace",
+			"url": "https://rahulshettyacademy.com/maps/api/place/add/json?key= qaclick123",
+			"time": 642,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Validate Responsecode and status": true,
+				"Validate Responsebody for accurancy and completness": true,
+				"Validate ResponseTime": true,
+				"Validate Responseheader": true,
+				"Validate Response is valid JSON Response": true,
+				"Validate Status property is present or not": true,
+				"Validate Scope value is APP": true,
+				"Validate all mandatoryfields present or not ": true
+			},
+			"testPassFailCounts": {
+				"Validate Responsecode and status": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Responsebody for accurancy and completness": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate ResponseTime": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Responseheader": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Response is valid JSON Response": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Status property is present or not": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Scope value is APP": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate all mandatoryfields present or not ": {
+					"pass": 3,
+					"fail": 0
+				}
+			},
+			"times": [
+				654,
+				626,
+				642
+			],
+			"allTests": [
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true,
+					"Validate Response is valid JSON Response": true,
+					"Validate Status property is present or not": true,
+					"Validate Scope value is APP": true,
+					"Validate all mandatoryfields present or not ": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true,
+					"Validate Response is valid JSON Response": true,
+					"Validate Status property is present or not": true,
+					"Validate Scope value is APP": true,
+					"Validate all mandatoryfields present or not ": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true,
+					"Validate Response is valid JSON Response": true,
+					"Validate Status property is present or not": true,
+					"Validate Scope value is APP": true,
+					"Validate all mandatoryfields present or not ": true
+				}
+			]
+		},
+		{
+			"id": "b821ecca-44ca-451b-8f09-d8f8f756bff6",
+			"name": "GetPlace",
+			"url": "https://rahulshettyacademy.com/maps/api/place/get/json?place_id=99fdf7288c87c09143fc884410f36c96&key=qaclick123",
+			"time": 1961,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Validate Responsecode and status": true,
+				"Validate Responsebody for accurancy and completness": true,
+				"Validate ResponseTime": false,
+				"Validate Responseheader": true,
+				"Validate Response is valid JSON Response": true,
+				"Validate address property is present or not": true,
+				"Validate language value is French-IN": true,
+				"Validate all mandatoryfields present or not ": true
+			},
+			"testPassFailCounts": {
+				"Validate Responsecode and status": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Responsebody for accurancy and completness": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate ResponseTime": {
+					"pass": 0,
+					"fail": 3
+				},
+				"Validate Responseheader": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Response is valid JSON Response": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate address property is present or not": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate language value is French-IN": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate all mandatoryfields present or not ": {
+					"pass": 3,
+					"fail": 0
+				}
+			},
+			"times": [
+				2092,
+				1885,
+				1961
+			],
+			"allTests": [
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": false,
+					"Validate Responseheader": true,
+					"Validate Response is valid JSON Response": true,
+					"Validate address property is present or not": true,
+					"Validate language value is French-IN": true,
+					"Validate all mandatoryfields present or not ": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": false,
+					"Validate Responseheader": true,
+					"Validate Response is valid JSON Response": true,
+					"Validate address property is present or not": true,
+					"Validate language value is French-IN": true,
+					"Validate all mandatoryfields present or not ": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": false,
+					"Validate Responseheader": true,
+					"Validate Response is valid JSON Response": true,
+					"Validate address property is present or not": true,
+					"Validate language value is French-IN": true,
+					"Validate all mandatoryfields present or not ": true
+				}
+			]
+		},
+		{
+			"id": "dfe73039-f08a-4a6c-8747-3421ab67f7b6",
+			"name": "UpdatePlace",
+			"url": "https://rahulshettyacademy.com/maps/api/place/update/json?place_id=null&key=qaclick123",
+			"time": 783,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Validate Responsecode and status": true,
+				"Validate Responsebody for accurancy and completness": true,
+				"Validate ResponseTime": true,
+				"Validate Responseheader": true
+			},
+			"testPassFailCounts": {
+				"Validate Responsecode and status": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Responsebody for accurancy and completness": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate ResponseTime": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Responseheader": {
+					"pass": 3,
+					"fail": 0
+				}
+			},
+			"times": [
+				661,
+				688,
+				783
+			],
+			"allTests": [
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true
+				}
+			]
+		},
+		{
+			"id": "8f8674e0-9fd5-4937-80ed-46f9bc8d7a2a",
+			"name": "DeletePlace",
+			"url": "https://rahulshettyacademy.com/maps/api/place/delete/json?key=qaclick123",
+			"time": 649,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Validate Responsecode and status": true,
+				"Validate Responsebody for accurancy and completness": true,
+				"Validate ResponseTime": true,
+				"Validate Responseheader": true
+			},
+			"testPassFailCounts": {
+				"Validate Responsecode and status": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate Responsebody for accurancy and completness": {
+					"pass": 3,
+					"fail": 0
+				},
+				"Validate ResponseTime": {
+					"pass": 2,
+					"fail": 1
+				},
+				"Validate Responseheader": {
+					"pass": 3,
+					"fail": 0
+				}
+			},
+			"times": [
+				861,
+				657,
+				649
+			],
+			"allTests": [
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": false,
+					"Validate Responseheader": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true
+				},
+				{
+					"Validate Responsecode and status": true,
+					"Validate Responsebody for accurancy and completness": true,
+					"Validate ResponseTime": true,
+					"Validate Responseheader": true
+				}
+			]
+		}
+	],
+	"count": 3,
+	"totalTime": 12159,
+	"collection": {
+		"requests": [
+			{
+				"id": "654cc14c-7f26-4486-ad04-4601f1afb094",
+				"method": "POST"
+			},
+			{
+				"id": "b821ecca-44ca-451b-8f09-d8f8f756bff6",
+				"method": "GET"
+			},
+			{
+				"id": "dfe73039-f08a-4a6c-8747-3421ab67f7b6",
+				"method": "PUT"
+			},
+			{
+				"id": "8f8674e0-9fd5-4937-80ed-46f9bc8d7a2a",
+				"method": "DELETE"
+			}
+		]
+	}
+}

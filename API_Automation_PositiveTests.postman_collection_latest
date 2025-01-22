@@ -1,0 +1,531 @@
+{
+	"info": {
+		"_postman_id": "f41cff76-8819-41df-95a3-72e6d63ea53e",
+		"name": "API_Automation_PositiveTests",
+		"description": "**Collection Overview**\n\n### **Collection Name**:\n\n**API Automation Positive Testing**\n\n### **Requests**:\n\n- **AddPlace (POST)**\n    \n- **GetPlace (GET)**\n    \n- **UpdatePlace (PUT)**\n    \n- **DeletePlace (DELETE)**\n    \n\n### **Base URL Variable**:\n\n- A collection-level variable `{{base_url}}` is created to store the base URL (e.g., `https://rahulshettyacademy.com`).\n    \n- This ensures all requests within the collection use the same base URL dynamically.\n    \n\n---\n\n# **Property Transfer and Variable Management**\n\n- The `place_id` is dynamically generated upon the successful execution of the **AddPlace** request.\n    \n- The `place_id` value is captured from the response of the **AddPlace** request and stored as a collection variable (`{{place_id}}`).\n    \n- This variable is reused in the **GetPlace**, **UpdatePlace**, and **DeletePlace** requests to achieve seamless property transfer across requests.\n    \n\n---\n\n# **Positive Testing**\n\n- **Data Parameterization**:\n    \n    - Data for the **AddPlace** and **UpdatePlace** requests is parameterized using a CSV file to handle multiple test cases efficiently.\n        \n- **Assertions**:  \n    Assertions are implemented to validate:\n    \n    1. **Response Status Codes**: Ensure the API returns correct and expected status codes.\n        \n    2. **Response Body Structure**: Verify the completeness and accuracy of the response.\n        \n    3. **Response Headers**: Validate correct headers, such as `Content-Type`.\n        \n    4. **Response Time**: Confirm that response times meet acceptable thresholds.\n        \n    5. **Mandatory Fields**: Ensure the presence of critical fields (e.g., `status`, `place_id`, `scope`, `reference`, etc.) in the responses.\n        \n\n---\n\n# **Negative Testing**\n\nOutlined approaches for conducting negative testing to validate the robustness of the API against invalid requests include:\n\n1. **Tampering Payloads**:\n    \n    - Sending empty payloads or invalid data formats to test how the API handles incomplete or malformed input.\n        \n2. **Unsupported Request Methods**:\n    \n    - Using HTTP methods that the API does not support (e.g., sending a POST request for a GET endpoint or a DELETE request for a GET endpoint).\n        \n3. **Breaking Endpoints**:\n    \n    - Modifying the endpoint paths to invalid or non-existent routes to test the API's error handling capabilities.\n        \n\n**Note**: Since these API requests are dummy/test requests, they return a `200` success code for all negative testing scenarios described above. However, this section outlines standard negative testing practices that can be implemented to validate the behavior of robust APIs in production environments.\n\n---\n\n# **Performance Testing**\n\n- **Collection-Level Performance Testing**:  \n    The framework includes performance testing to analyze:\n    \n    1. **Throughput**: Requests per second.\n        \n    2. **Average Response Time**: The average time taken for requests to be processed.\n        \n    3. **Error Percentage**: The percentage of failed requests compared to the total requests.\n        \n- **Performance Scenarios**:\n    \n    1. **Spike Load**: Simulating a sudden, high volume of requests to evaluate system behavior under stress.\n        \n    2. **Fixed Load**: Applying a constant load over time to measure stability.\n        \n    3. **Ramp Load**: Gradually increasing the request volume over time to evaluate scalability.\n        \n    4. **Peak Load**: Testing the system's performance at its maximum request levels to identify potential bottlenecks.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38933082",
+		"_collection_link": "https://dev888-2769.postman.co/workspace/f881576f-22a2-497f-81eb-ee8bb56e3982/collection/38933082-f41cff76-8819-41df-95a3-72e6d63ea53e?action=share&source=collection_link&creator=38933082"
+	},
+	"item": [
+		{
+			"name": "AddPlace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"//Mandatory fields\r",
+							"const Mandatoryfields = [\"status\", \"place_id\", \"scope\",\"reference\",\"id\"];\r",
+							"\r",
+							"//Grab Place_id value from \"AddPlace\" response and place it collectionlevel and extract the same value to other requests \r",
+							"\r",
+							"const jsondata = pm.response.json();\r",
+							"const place_id_value = jsondata.place_id;\r",
+							"pm.collectionVariables.set(\"place_id\", place_id_value);\r",
+							"\r",
+							"\r",
+							"//Validate Response Code\r",
+							"pm.test(\"Validate Responsecode and status\", function()\r",
+							"{\r",
+							"pm.response.to.have.status(200);\r",
+							"pm.response.to.have.status(\"OK\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Validate Responsebody \r",
+							"\r",
+							"pm.test(\"Validate Responsebody for accurancy and completness\", function()\r",
+							"{\r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"//Validate Responsetime \r",
+							"\r",
+							"pm.test(\"Validate ResponseTime\", function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"//validate Response header\r",
+							"\r",
+							"pm.test(\"Validate Responseheader\", function()\r",
+							"{\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=UTF-8\" );\r",
+							"});\r",
+							"\r",
+							"//validate for jsonresponse\r",
+							"\r",
+							"pm.test(\"Validate Response is valid JSON Response\", function()\r",
+							"{\r",
+							"    try{\r",
+							"          JSON.parse(pm.response.text());\r",
+							"          pm.expect(true).to.be.true;\r",
+							"    }catch(e){\r",
+							"     pm.expect.fail(\"Response is not valid json\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"//validate if status is present\r",
+							"\r",
+							"pm.test(\"Validate Status property is present or not\", function()\r",
+							"{\r",
+							"    pm.expect(jsondata).to.have.property(\"status\");\r",
+							"});\r",
+							"\r",
+							"//validate scope value is APP\r",
+							"\r",
+							"pm.test(\"Validate Scope value is APP\", function()\r",
+							"{\r",
+							"    pm.expect(jsondata.scope).to.eql(\"APP\");\r",
+							"});\r",
+							"\r",
+							"//validate all mandatory fileds are present or not\r",
+							"\r",
+							"pm.test(\"Validate all mandatoryfields present or not \", function()\r",
+							"{\r",
+							"     \r",
+							"    Mandatoryfields.forEach(function (field)\r",
+							"\r",
+							"    {\r",
+							"        pm.expect(jsondata).to.have.property(field);\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36\"",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n\r\n {\r\n    \"location\": {\r\n        \"lat\": {{lat}},\r\n        \"lng\": {{lng}}\r\n    },\r\n    \"accuracy\": {{accuracy}},\r\n    \"name\": \"{{name}}\",\r\n    \"phone_number\": \"{{phone_number}}\",\r\n    \"address\": \"{{address}}\",\r\n    \"types\": [\r\n        \"{{types1}}\",\r\n        \"{{types2}}\"\r\n    ],\r\n    \"website\": \"{{website}}\",\r\n    \"language\": \"{{language}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/maps/api/place/add/json?key= qaclick123",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"add",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": " qaclick123"
+						}
+					]
+				},
+				"description": "### **1\\. AddPlace Request**\n\n**Request Type**: `POST`  \n\n- **Data Source**: Values derived from a CSV file for multiple iterations.\n    \n- **Assertions**:\n    \n    - Validate status code (`200 OK`).\n        \n    - Validate response body contains `status`, `place_id`, `scope`, `reference`, and `id`.\n        \n    - Validate headers for `Content-Type: application/json;charset=UTF-8`.\n        \n    - Validate response time is below `800ms`.\n        \n    - Ensure the response is valid JSON.\n        \n- **User-Agent**: `Mozilla/5.0 (Windows NT 10.0; Win64; x64)`."
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"//Mandatory fields\r",
+							"const Mandatoryfields = [ \"accuracy\",\"name\",\"phone_number\",\"address\",\"types\",\"website\",\"language\"];\r",
+							"\r",
+							"//Grab Place_id value from \"AddPlace\" response and place it collectionlevel and extract the same value to other requests \r",
+							"\r",
+							"const jsondata = pm.response.json();\r",
+							"const place_id_value = jsondata.place_id;\r",
+							"pm.collectionVariables.set(\"place_id\", place_id_value);\r",
+							"\r",
+							"\r",
+							"//Validate Response Code\r",
+							"pm.test(\"Validate Responsecode and status\", function()\r",
+							"{\r",
+							"pm.response.to.have.status(200);\r",
+							"pm.response.to.have.status(\"OK\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Validate Responsebody \r",
+							"\r",
+							"pm.test(\"Validate Responsebody for accurancy and completness\", function()\r",
+							"{\r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"//Validate Responsetime \r",
+							"\r",
+							"pm.test(\"Validate ResponseTime\", function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"//validate Response header\r",
+							"\r",
+							"pm.test(\"Validate Responseheader\", function()\r",
+							"{\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json;charset=UTF-8\" );\r",
+							"});\r",
+							"\r",
+							"//validate for jsonresponse\r",
+							"\r",
+							"pm.test(\"Validate Response is valid JSON Response\", function()\r",
+							"{\r",
+							"    try{\r",
+							"          JSON.parse(pm.response.text());\r",
+							"          pm.expect(true).to.be.true;\r",
+							"    }catch(e){\r",
+							"     pm.expect.fail(\"Response is not valid json\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"//validate if status is present\r",
+							"\r",
+							"pm.test(\"Validate address property is present or not\", function()\r",
+							"{\r",
+							"    pm.expect(jsondata).to.have.property(\"address\");\r",
+							"});\r",
+							"\r",
+							"//validate scope value is APP\r",
+							"\r",
+							"pm.test(\"Validate language value is French-IN\", function()\r",
+							"{\r",
+							"    pm.expect(jsondata.language).to.eql(\"French-IN\");\r",
+							"});\r",
+							"\r",
+							"//validate all mandatory fileds are present or not\r",
+							"\r",
+							"pm.test(\"Validate all mandatoryfields present or not \", function()\r",
+							"{\r",
+							"     \r",
+							"    Mandatoryfields.forEach(function (field)\r",
+							"\r",
+							"    {\r",
+							"        pm.expect(jsondata).to.have.property(field);\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "{{$randomUserAgent}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/maps/api/place/get/json?place_id={{place_id}}&key=qaclick123",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"get",
+						"json"
+					],
+					"query": [
+						{
+							"key": "place_id",
+							"value": "{{place_id}}"
+						},
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				},
+				"description": "### **2\\. GetPlace Request**\n\n**Request Type**: `GET`\n\n**Assertions**:\n\n- Validate status code (`200 OK`).\n    \n- Validate response body contains:\n    \n    - Mandatory fields: `accuracy`, `name`, `phone_number`, `address`, `types`, `website`, `language`.\n        \n    - Specific values like `language: French-IN`.\n        \n- Validate headers for `Content-Type: application/json;charset=UTF-8`.\n    \n- Validate response time is below `800ms`.\n    \n- Ensure the response is valid JSON.\n    \n- **User-Agent**: Dynamically generated using a random function."
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePlace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"//Validate Response Code\r",
+							"pm.test(\"Validate Responsecode and status\", function()\r",
+							"{\r",
+							"pm.response.to.have.status(200);\r",
+							"pm.response.to.have.status(\"OK\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Validate Responsebody \r",
+							"\r",
+							"pm.test(\"Validate Responsebody for accurancy and completness\", function()\r",
+							"{\r",
+							"    pm.response.to.not.have.body();\r",
+							"});\r",
+							"\r",
+							"//Validate Responsetime \r",
+							"\r",
+							"pm.test(\"Validate ResponseTime\", function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"//validate Response header\r",
+							"\r",
+							"pm.test(\"Validate Responseheader\", function()\r",
+							"{\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=UTF-8\" );\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "{{$randomUserAgent}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"place_id\":{{place_id}},\r\n\"address\":\"{{updatedaddress}}\",\r\n\"key\":\"qaclick123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/maps/api/place/update/json?place_id={{place_id}}&key=qaclick123",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"update",
+						"json"
+					],
+					"query": [
+						{
+							"key": "place_id",
+							"value": "{{place_id}}"
+						},
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				},
+				"description": "### **3\\. UpdatePlace Request**\n\n**Request Type**: `PUT`\n\n- **Data Source**:\n    \n    - `place_id` is retrieved from the collection variable.\n        \n    - `updatedaddress` is derived from the CSV file.\n        \n- **Assertions**:\n    \n    - Validate status code (`200 OK`).\n        \n    - Validate response time is below `800ms`.\n        \n    - Validate headers for `Content-Type: application/json; charset=UTF-8`.\n        \n- **User-Agent**: Randomly generated."
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePlace",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"//Validate Response Code\r",
+							"pm.test(\"Validate Responsecode and status\", function()\r",
+							"{\r",
+							"pm.response.to.have.status(200);\r",
+							"pm.response.to.have.status(\"OK\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Validate Responsebody \r",
+							"\r",
+							"pm.test(\"Validate Responsebody for accurancy and completness\", function()\r",
+							"{\r",
+							"    pm.response.to.not.have.body();\r",
+							"});\r",
+							"\r",
+							"//Validate Responsetime \r",
+							"\r",
+							"pm.test(\"Validate ResponseTime\", function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"//validate Response header\r",
+							"\r",
+							"pm.test(\"Validate Responseheader\", function()\r",
+							"{\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=UTF-8\" );\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "\"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0\"",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"place_id\":{{place_id}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/maps/api/place/delete/json?key=qaclick123",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"delete",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "qaclick123"
+						}
+					]
+				},
+				"description": "### **4\\. DeletePlace Request**\n\n**Request Type**: `DELETE`\n\n- **Data Source**: `place_id` is retrieved from the collection variable.\n    \n- **Assertions**:\n    \n    - Validate status code (`200 OK`).\n        \n    - Validate response time is below `800ms`.\n        \n    - Validate headers for `Content-Type: application/json; charset=UTF-8`.\n        \n- **User-Agent**: `Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0`."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"// Set a delay of 3 seconds\r",
+					"const delay = 5000;\r",
+					"\r",
+					"// Delay execution\r",
+					"pm.collectionVariables.set(\"delayTime\", delay);\r",
+					"setTimeout(() => {\r",
+					"    console.log(`Waiting for ${delay} milliseconds before executing the next request.`);\r",
+					"}, delay);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://rahulshettyacademy.com",
+			"type": "string"
+		},
+		{
+			"key": "place_id",
+			"value": ""
+		},
+		{
+			"key": "delayTime",
+			"value": ""
+		}
+	]
+}
